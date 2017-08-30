@@ -2,3 +2,5 @@ dist/
 glintpy.egg-info/
 __pycache__/
 build/
+*.orig
+*/*.orig

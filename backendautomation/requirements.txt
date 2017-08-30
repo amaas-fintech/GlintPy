@@ -1,6 +1,0 @@
-boto3
-shell
-click
-requests
-pymysql
-amaasinfra>=0.2.5
