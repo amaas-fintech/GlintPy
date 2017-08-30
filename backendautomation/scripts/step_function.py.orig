@@ -1,0 +1,46 @@
+import base64
+import boto3
+import click
+import json
+import os
+import sys
+import shutil
+import string
+import random
+from state_machine import Task, StateMachine
+
+@click.command()
+@click.option('-f', '--file')
+def step_function_automate(file=''):
+    # if len(sys.argv) < 2 or (sys.argv[1] != '-f' and sys.argv[1] != '--file'):
+    #     raise ValueError('Missing settings file path argument. Supply a settings file path with -f argument.')
+    # input_file = sys.argv[2]
+
+    # Load the list of lambda functions to be updated to AWS
+    try:
+        with open(file) as data_file:
+            data = json.load(data_file)
+    except Exception as e:
+        print('Error. Unable to load the setting file.')
+        sys.exit()
+
+
+    step_functions = data.get('stepFunctions', [])
+    virtualenv = data.get('pythonVirtualenv')
+
+    for item in step_functions:
+        if not item.get('skip'):            
+            sm = StateMachine(start_at=item[0].get('steps', [{}])[0].get('name', ''),
+                              comment='Testing for step function')
+
+            print('Start to package lambda functions...')
+
+            for item in item[0].get('steps'):
+                sm.add_state(Task(lambda_name,
+                                  response.get('FunctionArn', ''),
+                                  next_step))
+
+            print('Success! Done deploying.')
+
+if __name__ == '__main__':
+    step_function_automate()
