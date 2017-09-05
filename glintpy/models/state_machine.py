@@ -181,15 +181,3 @@ class Fail(JSONifyMixin, State):
 
         if error:
             self._config['Error'] = error
-
-if __name__ == '__main__':
-    sm = StateMachine(start_at='TestLambdaTask', comment='Comment')
-    sm.add_state(Task(name='TestLambdaTask',  state_resource='arn:aws:lambda:us-east-1:123456789012:function:asdfsd'))
-    Task(name='TestLambdaTask',  state_resource='arn:aws:lambda:us-east-1:123456789012:function:asdfsd')
-    parallel = Parallel(name='TestLambdaParallel', 
-                        branches=[Branch('TestStart',
-                                         Task(name='TestLambdaTask',
-                                              state_resource='arn:aws:lambda:us-east-1:123456789012:function:asdfsd'))])
-
-    sm.add_state(parallel)
-    print(sm.to_dict())
