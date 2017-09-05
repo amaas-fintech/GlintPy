@@ -5,6 +5,6 @@ This is for the missing pieces of AWS CloudFormation and more
 pip install glintpy
 
 
-Next realease:
+Next release:
 - Add support for API Gateway
 - Add support for ElasticSearch instance 
